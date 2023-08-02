@@ -26,7 +26,7 @@
   text-align: center;
   color: white;
   float: left;
-  @media (max-width: 768px) {
+  @media (max-width: 560px) {
     margin: 10px 20px;
     width: calc(100% - 40px);
     &:first-child {

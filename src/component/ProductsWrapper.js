@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Products } from "./Products";
 import "./ProductsWrapper.css";
+import { cartContext } from "../context/CartContext";
 
 export const ProductsWrapper = () => {
+  const cart = useContext(cartContext);
+
   return (
     <span className="product-card-wrapper">
-      {Products.map((product) => (
+      {Products.map((p) => (
         <div className="products_card">
-          <span className="products_card_title">{product.name}</span>
-          <span className="products_card_cost">{product.cost}$</span>
-          <button>Add to cart</button>
+          <span className="products_card_title">{p.name}</span>
+          <span className="products_card_cost">{p.cost}$</span>
+          <button className="button" onClick={() => cart.addToCart(p.id)}>
+            Add to cart
+          </button>
         </div>
       ))}
     </span>

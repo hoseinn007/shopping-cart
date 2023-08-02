@@ -6,3 +6,10 @@ export const Products = [
   { id: "3", name: "Carpet", cost: 600 },
   { id: "4", name: "Table", cost: 200 },
 ];
+export const getProductData = (id) => {
+  const pData = Products.find((p) => p.id === id);
+  if (pData === undefined) {
+    return undefined;
+  }
+  return pData;
+};
