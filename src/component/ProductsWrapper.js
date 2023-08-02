@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Products } from "./Products";
 import "./ProductsWrapper.css";
-import { cartContext } from "../context/CartContext";
+import { CartContext } from "../context/CartContext";
 
 export const ProductsWrapper = () => {
-  const cart = useContext(cartContext);
+  const cart = useContext(CartContext);
 
   return (
     <span className="product-card-wrapper">

@@ -21,8 +21,6 @@ body {
 .nav-bar {
   position: absolute;
   top: 5px;
-  /* right: 16px;
-  left: 16px; */
   font-size: 18px;
   width: 80%;
   height: 50px;
@@ -33,19 +31,26 @@ body {
     list-style: none;
     width: 100%;
     height: auto;
-    .cart {
+    .cart-btn {
       position: absolute;
       right: 10px;
       top: 10px;
-      padding: 4px 8px 4px 8px;
+      padding: 8px;
       background: #7f3cb6;
       box-shadow: 0 0 5px #b88bdd;
+      width: 120px;
 
       &:hover {
         box-shadow: 0 0 8px #6a2b9e;
       }
       &:active {
         box-shadow: 0 0 8px #4a1b71;
+      }
+      .cart-btn_qty {
+        background-color: #44275b;
+        box-shadow: 0 0 5px #9580a3;
+        border-radius: 10000px;
+        padding: 3px 5px 4px 3px;
       }
     }
 
