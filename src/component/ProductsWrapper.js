@@ -9,7 +9,7 @@ export const ProductsWrapper = () => {
   return (
     <span className="product-card-wrapper">
       {Products.map((p) => (
-        <div className="products_card">
+        <div key={p.id} className="products_card">
           <span className="products_card_title">{p.name}</span>
           <span className="products_card_cost">{p.cost}$</span>
           <button className="button" onClick={() => cart.addToCart(p.id)}>

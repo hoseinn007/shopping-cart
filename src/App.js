@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import { ProductsWrapper } from "./component/ProductsWrapper";
 import { IndexPage } from "./pages/IndexPage";
 import { CancelPage } from "./pages/CancelPage";
 import { SuccessPage } from "./pages/SuccessPage";

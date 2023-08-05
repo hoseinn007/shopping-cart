@@ -6,12 +6,12 @@ export const NavBar = ({ showModal }) => {
   const cart = useContext(CartContext);
   return (
     <nav className="nav-bar">
-      <div class="menuItems">
+      <div className="menuItems">
         <button className="button product ">Products</button>
         <button className="button cart-btn" onClick={showModal}>
           Your Cart&nbsp;&nbsp;
-          {cart.totalQTY > 0 ? (
-            <span className="cart-btn_qty">{cart.totalQTY}</span>
+          {cart.totalQty > 0 ? (
+            <span className="cart-btn_qty">{cart.totalQty}</span>
           ) : (
             ""
           )}

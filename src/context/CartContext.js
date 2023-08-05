@@ -2,78 +2,83 @@ import React, { createContext, useState } from "react";
 import { getProductData } from "../component/Products";
 const initialState = {
   items: [],
-  getItemQTY: () => {},
+  getItemQty: () => {},
   addToCart: () => {},
-  removeFroCart: () => {},
+  removeFromCart: () => {},
   deleteFromCart: () => {},
-  totalQTY: 0,
-  getTotalCost: () => {},
+  totalQty: 0,
+  totalPrice: 0,
 };
 export const CartContext = createContext(initialState);
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
-  const [totalQTY, setTotalQTY] = useState(0);
 
-  const getItemQTY = (id) => {
-    const QTY = cartItems.find((p) => (p.id === id ? p.QTY : ""));
-    if (QTY === undefined) {
+  const getItemQty = (id) => {
+    const qty = cartItems.find((p) => (p.id === id ? p.qty : ""));
+    if (qty === undefined) {
       return 0;
     }
+    return qty;
   };
   const addToCart = (id) => {
-    const QTY = getItemQTY(id);
-    if (QTY === 0) {
+    const qty = getItemQty(id);
+    if (qty === 0) {
       const pData = getProductData(id);
-      // console.log(pData);
       setCartItems([
         ...cartItems,
-        { id: id, QTY: 1, name: pData.name, price: pData.cost },
+        {
+          id: pData.id,
+          qty: 1,
+          name: pData.name,
+          price: pData.cost,
+          totalPrice: pData.cost,
+        },
       ]);
-      setTotalQTY(totalQTY + 1);
     } else {
       setCartItems(
-        cartItems.map((p) => (p.id === id ? { ...p, QTY: p.QTY + 1 } : p))
+        cartItems.map((p) =>
+          p.id === id
+            ? { ...p, qty: p.qty + 1, totalPrice: p.totalPrice + p.price }
+            : p
+        )
       );
-      setTotalQTY(totalQTY + 1);
     }
   };
   const removeFromCart = (id) => {
-    const QTY = getItemQTY(id);
-    if (QTY === 1) {
+    const qty = getItemQty(id);
+    if (qty === 1) {
       deleteFromCart(id);
-      setTotalQTY(totalQTY - 1);
     } else {
       setCartItems(
-        cartItems.map((p) => (p.id === id ? { ...p, QTY: p.QTY - 1 } : p))
+        cartItems.map((p) =>
+          p.id === id
+            ? { ...p, qty: p.qty - 1, totalPrice: p.totalPrice - p.price }
+            : p
+        )
       );
-      setTotalQTY(totalQTY - 1);
     }
   };
 
   const deleteFromCart = (id) => {
     setCartItems(cartItems.filter((p) => p.id !== id));
-    const currentQTY = cartItems.map((p) => (p.id === id ? p.QTY : ""));
-    setTotalQTY(totalQTY - currentQTY);
   };
 
-  const getTotalCost = () => {
-    let totalCost = 0;
-    cartItems.map((p) => {
-      const pData = getProductData(p.id);
-      totalCost += pData.cost * p.QTY;
-    });
-    return totalCost;
-  };
+  let totalPrice = 0;
+  let totalQty = 0;
+  for (let i = 0; i < cartItems.length; i++) {
+    totalPrice += cartItems[i].totalPrice;
+    totalQty += cartItems[i].qty;
+  }
 
   const cartValues = {
     items: cartItems,
-    getItemQTY,
+    getItemQty,
     addToCart,
     removeFromCart,
     deleteFromCart,
-    totalQTY: totalQTY,
-    getTotalCost,
+    totalQty: totalQty,
+    totalPrice: totalPrice,
   };
   return (
     <CartContext.Provider value={cartValues}>{children}</CartContext.Provider>
