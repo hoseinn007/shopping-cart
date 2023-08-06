@@ -10,8 +10,8 @@ export const CartModal = ({ open, close }) => {
   }
 
   return (
-    <div className="modal">
-      <div className="modal_cart">
+    <div className="modal" onClick={close}>
+      <div className="modal_cart" onClick={(e) => e.stopPropagation()}>
         <p className="modal_cart_close-btn" onClick={close}>
           X
         </p>

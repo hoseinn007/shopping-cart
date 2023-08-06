@@ -1,5 +1,11 @@
 import React, { createContext, useState } from "react";
 import { getProductData } from "../component/Products";
+import { json } from "react-router-dom";
+const getInitialState = () => {
+  const inHereCart = localStorage.getItem("Your Cart");
+  const lastCart = JSON.parse(inHereCart);
+  return inHereCart ? lastCart : [];
+};
 const initialState = {
   items: [],
   getItemQty: () => {},
@@ -12,10 +18,10 @@ const initialState = {
 export const CartContext = createContext(initialState);
 
 export const CartProvider = ({ children }) => {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(getInitialState);
 
   const getItemQty = (id) => {
-    const qty = cartItems.find((p) => (p.id === id ? p.qty : ""));
+    const qty = cartItems.find((p) => (p.id === id ? p.qty : undefined));
     if (qty === undefined) {
       return 0;
     }
@@ -80,6 +86,7 @@ export const CartProvider = ({ children }) => {
     totalQty: totalQty,
     totalPrice: totalPrice,
   };
+  localStorage.setItem("Your Cart", JSON.stringify(cartItems));
   return (
     <CartContext.Provider value={cartValues}>{children}</CartContext.Provider>
   );
