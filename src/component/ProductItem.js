@@ -5,9 +5,6 @@ import "./ProductItem.css";
 export const ProductItem = ({ product }) => {
   const cart = useContext(CartContext);
   const productQty = cart.getItemQty(product.id);
-  console.log("p qty", productQty.qty);
-  //   const [removeButton, setRemoveButton] = useState(false);
-  //   console.log("removeButton", removeButton);
   return (
     <div key={product.id} className="products_card">
       <span className="products_card_title">{product.name}</span>

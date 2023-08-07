@@ -18,7 +18,7 @@ export const CartModal = ({ open, close }) => {
         <h1 className="modal_title">Your cart</h1>
 
         <div>
-          {cart.items.map((p, index) =>
+          {cart.items.map((p) =>
             p.qty > 0 ? (
               <div key={p.id} className="modal_items-wrapper">
                 <button
@@ -40,8 +40,8 @@ export const CartModal = ({ open, close }) => {
                 >
                   -
                 </button>
-                <div className="modal_items-qty">{p.qty}</div>
-                <div className="modal_items-qty">{p.totalPrice}</div>
+                <div className="modal_items-qty">Quantity:{p.qty}</div>
+                <div className="modal_items-qty">Price:{p.totalPrice}</div>
               </div>
             ) : (
               ""
@@ -49,10 +49,10 @@ export const CartModal = ({ open, close }) => {
           )}
         </div>
         {cart.totalPrice > 0 ? (
-          <div className="modal_total-cost">
-            Total:
-            {cart.totalPrice}
-          </div>
+          <button className="modal_total-cost button pay-btn">
+            Total Price:&nbsp;&nbsp;
+            {cart.totalPrice}&nbsp;$
+          </button>
         ) : (
           ""
         )}

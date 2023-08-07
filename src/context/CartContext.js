@@ -1,6 +1,5 @@
 import React, { createContext, useState } from "react";
 import { getProductData } from "../component/Products";
-import { json } from "react-router-dom";
 const getInitialState = () => {
   const inHereCart = localStorage.getItem("Your Cart");
   const lastCart = JSON.parse(inHereCart);
@@ -22,6 +21,7 @@ export const CartProvider = ({ children }) => {
 
   const getItemQty = (id) => {
     const qty = cartItems.find((p) => (p.id === id ? p.qty : undefined));
+    console.log("get item qty context", qty);
     if (qty === undefined) {
       return 0;
     }
@@ -53,7 +53,8 @@ export const CartProvider = ({ children }) => {
   };
   const removeFromCart = (id) => {
     const qty = getItemQty(id);
-    if (qty === 1) {
+    // console.log("context qty", qty.qty);
+    if (qty.qty === 1) {
       deleteFromCart(id);
     } else {
       setCartItems(
